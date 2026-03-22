@@ -6,3 +6,4 @@
 [-]Add some more books
 [-]Fix and personalize a lot of things
 [-] Keep the popping element for titles, as it is good to make people's glance follow that path
+[-]keep the same format of content, as it is optimal
