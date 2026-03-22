@@ -1,2 +1,0 @@
-# dinu.plesu.net
-Website

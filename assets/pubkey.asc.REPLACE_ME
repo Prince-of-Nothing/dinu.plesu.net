@@ -1,0 +1,6 @@
+Replace this file with your actual PGP public key.
+
+Export your key with:
+  gpg --armor --export your@email.com > pubkey.asc
+
+Then rename pubkey.asc.REPLACE_ME to pubkey.asc
