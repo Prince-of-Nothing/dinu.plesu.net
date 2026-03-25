@@ -1,13 +1,13 @@
 // Navigation defaults used when JSON content cannot be loaded.
 const DEFAULT_NAV_ITEMS = [
   // Main sections
-  { label: "Journal", href: "index.html", section: "main" },
+  { label: "Journal", href: "index.html", position: "pos1" },
 
   // Resources
-  { label: "Library", href: "library.html", section: "resources" },
+  { label: "Library", href: "library.html", position: "pos2" },
 
   // Contact & Links
- { label: "GitHub", href: "https://github.com/Prince-of-Nothing", section: "links", external: true },
+ { label: "GitHub", href: "https://github.com/Prince-of-Nothing", external: true, position: "pos3" },
 
 ];
 
@@ -112,39 +112,36 @@ function normalizeSiteConfig(site) {
 function normalizeNavItems(items) {
   if (!Array.isArray(items)) return DEFAULT_NAV_ITEMS;
 
-  const sectionToPos = {
-    main: "pos1",
-    resources: "pos2",
-    links: "pos3",
-  };
-
-  const parsePosition = (rawPosition, rawSection) => {
+  const parsePosition = (rawPosition) => {
     if (typeof rawPosition === "string") {
       const value = rawPosition.trim().toLowerCase();
       if (value === "pos1" || value === "1") return "pos1";
       if (value === "pos2" || value === "2") return "pos2";
       if (value === "pos3" || value === "3") return "pos3";
+      if (value === "pos4" || value === "4") return "pos4";
     }
 
     if (typeof rawPosition === "number") {
       if (rawPosition === 1) return "pos1";
       if (rawPosition === 2) return "pos2";
       if (rawPosition === 3) return "pos3";
-    }
-
-    if (typeof rawSection === "string") {
-      const mapped = sectionToPos[rawSection.trim().toLowerCase()];
-      if (mapped) return mapped;
+      if (rawPosition === 4) return "pos4";
     }
 
     return "pos1";
+  };
+
+  const isExternalHref = (href) => {
+    if (typeof href !== "string") return false;
+    return /^(https?:)?\/\//i.test(href) || /^mailto:/i.test(href) || /^tel:/i.test(href);
   };
 
   const validItems = items
     .filter((item) => item && typeof item.label === "string" && typeof item.href === "string")
     .map((item) => ({
       ...item,
-      position: parsePosition(item.position, item.section),
+      position: parsePosition(item.position),
+      external: typeof item.external === "boolean" ? item.external : isExternalHref(item.href),
     }));
 
   return validItems.length > 0 ? validItems : DEFAULT_NAV_ITEMS;
@@ -255,6 +252,7 @@ function buildNav(navItems) {
     pos1: document.createElement("ul"),
     pos2: document.createElement("ul"),
     pos3: document.createElement("ul"),
+    pos4: document.createElement("ul"),
   };
 
   Object.entries(columnMap).forEach(([position, column]) => {
