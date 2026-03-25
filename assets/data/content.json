@@ -1,0 +1,64 @@
+{
+  "site": {
+    "title": "shameless",
+    "titleSuffix": " — shameless.plesu.net",
+    "footerYear": "2026-2026",
+    "footerName": ""
+  },
+  "navigation": [
+    {
+      "label": "Journal",
+      "href": "index.html",
+      "position": "pos1"
+    },
+      {
+      "label": "Alpha",
+      "href": "index.html",
+      "position": "pos2"
+    },
+    {
+      "label": "Library",
+      "href": "library.html",
+      "position": "pos2"
+    },
+    {
+      "label": "GitHub",
+      "href": "https://github.com/Prince-of-Nothing",
+      "position": "pos3"
+    }
+  ],
+  "journal": {
+    "entryTemplate": {
+      "title": "",
+      "href": "",
+      "date": "YYYY-MM-DD",
+      "excerpt": "",
+      "tags": [],
+      "pinned": false
+    },
+    "entries": []
+  },
+  "library": {
+    "entryTemplate": {
+      "title": "",
+      "author": "",
+      "href": "",
+      "coverImage": "",
+      "description": "",
+      "status": "reading"
+    },
+    "entries": []
+  },
+  "graveyard": {
+    "entryTemplate": {
+      "title": "",
+      "author": "",
+      "href": "",
+      "coverImage": "",
+      "description": "",
+      "reason": "",
+      "droppedOn": "YYYY-MM-DD"
+    },
+    "entries": []
+  }
+}
