@@ -98,20 +98,34 @@
     const overlay = document.getElementById("killjs");
     if (!overlay) return;
 
-    overlay.style.display = "block";
-    overlay.innerHTML = `
-      <div class="killjs-content">
-        <p><strong>RETURN TO THEE</strong></p>
-        <p>
-          What is a human without a <em>heart</em>?
-        </p>
-        <p>
-          If we can exchange meanings, isn't that what being human is about?
-        </p>
-        <p>
-        <p><strong>RETURN TO THEE</strong></p>
-      </div>
-    `;
+    // Fetch and display a random quote
+    fetch("assets/data/quotes.json")
+      .then((response) => response.json())
+      .then((data) => {
+        const quotes = data.quotes || [];
+        if (quotes.length === 0) {
+          console.error("No quotes found in quotes.json");
+          return;
+        }
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        
+        overlay.classList.add("show");
+        overlay.innerHTML = `
+          <div class="killjs-content">
+            <p>${randomQuote.text}</p>
+            ${randomQuote.author ? `<p>— ${randomQuote.author}</p>` : ""}
+          </div>
+        `;
+      })
+      .catch((error) => {
+        console.error("Failed to load quotes:", error);
+        overlay.classList.add("show");
+        overlay.innerHTML = `
+          <div class="killjs-content">
+            <p>Could not load quotes</p>
+          </div>
+        `;
+      });
   }
 
   init();
@@ -119,5 +133,5 @@
 
 function closeKilljsInfo() {
   const overlay = document.getElementById("killjs");
-  if (overlay) overlay.style.display = "none";
+  if (overlay) overlay.classList.remove("show");
 }
